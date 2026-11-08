@@ -1,3 +1,12 @@
+<!-- datasheet:banner -->
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/banner-dark.svg">
+    <img src=".github/assets/banner-light.svg" alt="Study Copilot: A macOS menu bar study companion: select any region of your screen, get an explanation. Includes an offline practice sandbox." width="100%">
+  </picture>
+</p>
+<!-- /datasheet:banner -->
+
 # Study Copilot & Educational Practice Sandbox
 
 A lightweight, native macOS Menu Bar application that acts as an academic study copilot. It allows you to select any region of your screen or read clipboard text to generate structured, step-by-step conceptual explanations for complex algorithms, code snippets, and practice problems.
@@ -5,6 +14,24 @@ A lightweight, native macOS Menu Bar application that acts as an academic study 
 Included is a completely isolated **Offline Practice Quiz Sandbox** (`http://127.0.0.1:8000`) for safely evaluating and testing screen-capture and vision-based analysis workflows.
 
 ---
+
+<!-- datasheet:figure -->
+## At a glance
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/diagram-dark.svg">
+    <img src=".github/assets/diagram-light.svg" alt="Block diagram: menu bar to explanation" width="100%">
+  </picture>
+</p>
+
+| Characteristic | Detail |
+| --- | --- |
+| **App** | Native macOS menu bar app (`app.py`, built with `rumps` on PyObjC); work runs on background threads so the UI stays responsive |
+| **Engines** | Offline mock (no key, no network), Claude 3.5 Sonnet (`ANTHROPIC_API_KEY`), Gemini 2.5 Flash (`GEMINI_API_KEY`) |
+| **Input** | Interactive screen region, full screen, or clipboard text |
+| **Sandbox** | Isolated offline practice quiz at `http://127.0.0.1:8000` for testing capture and vision safely |
+<!-- /datasheet:figure -->
 
 ## Architecture Overview
 
@@ -64,3 +91,6 @@ export GEMINI_API_KEY="AIzaSy..."
 ```
 You can switch between engines on the fly using the **⚙️ Engine** dropdown in the menu bar.
 
+## License
+
+MIT. See [LICENSE](LICENSE).
