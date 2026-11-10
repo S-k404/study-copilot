@@ -19,6 +19,9 @@ When given an image or text from a course, lecture, or practice problem:
 
 Keep your response structured, concise, and easy to read quickly in a small window or notification."""
 
+CLAUDE_MODEL = "claude-sonnet-5-5"
+CLAUDE_LABEL = "Claude Sonnet 5.5"
+
 class ExplainerEngine:
     def __init__(self, mode="auto"):
         """
@@ -79,42 +82,52 @@ class ExplainerEngine:
         else:
             return self._mock_explain(text)
 
+    def _claude_ask(self, content) -> str:
+        """Send one request to Claude and return the text of its reply.
+
+        This model always thinks before it answers, so the reply can start with thinking blocks
+        (read the text by block type) and max_tokens has to leave room for both.
+        If its safety checks decline a request, the API retries it on a fallback model where it can.
+        """
+        from anthropic import Anthropic
+        client = Anthropic(api_key=self.anthropic_key)
+        response = client.beta.messages.create(
+            model=CLAUDE_MODEL,
+            max_tokens=16000,
+            output_config={"effort": "medium"},
+            betas=["server-side-fallback-2026-07-01"],
+            fallbacks="default",
+            system=SYSTEM_PROMPT,
+            messages=[{"role": "user", "content": content}],
+        )
+        if response.stop_reason == "refusal":
+            return "Claude declined to explain this content. Try another engine from the menu."
+        return next((block.text for block in response.content if block.type == "text"), "")
+
     def _claude_explain_image(self, image: Image.Image) -> dict:
         try:
-            from anthropic import Anthropic
-            client = Anthropic(api_key=self.anthropic_key)
-            
             # Convert PIL image to PNG base64
             buffered = BytesIO()
             image.save(buffered, format="PNG")
             img_b64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
 
-            response = client.messages.create(
-                model="claude-3-5-sonnet-20241022",
-                max_tokens=1000,
-                system=SYSTEM_PROMPT,
-                messages=[{
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "image",
-                            "source": {
-                                "type": "base64",
-                                "media_type": "image/png",
-                                "data": img_b64,
-                            }
-                        },
-                        {
-                            "type": "text",
-                            "text": "Analyze the question or educational content in this screenshot and provide the breakdown."
-                        }
-                    ]
-                }]
-            )
-            raw_text = response.content[0].text
+            raw_text = self._claude_ask([
+                {
+                    "type": "image",
+                    "source": {
+                        "type": "base64",
+                        "media_type": "image/png",
+                        "data": img_b64,
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Analyze the question or educational content in this screenshot and provide the breakdown."
+                }
+            ])
             first_line = raw_text.splitlines()[0] if raw_text else "Analysis Complete"
             return {
-                "engine": "Claude 3.5 Sonnet",
+                "engine": CLAUDE_LABEL,
                 "title": first_line[:60],
                 "summary": first_line,
                 "full_explanation": raw_text
@@ -160,18 +173,10 @@ class ExplainerEngine:
 
     def _claude_explain_text(self, text: str) -> dict:
         try:
-            from anthropic import Anthropic
-            client = Anthropic(api_key=self.anthropic_key)
-            response = client.messages.create(
-                model="claude-3-5-sonnet-20241022",
-                max_tokens=800,
-                system=SYSTEM_PROMPT,
-                messages=[{"role": "user", "content": f"Analyze and explain this concept/problem:\n\n{text}"}]
-            )
-            raw_text = response.content[0].text
+            raw_text = self._claude_ask(f"Analyze and explain this concept/problem:\n\n{text}")
             first_line = raw_text.splitlines()[0] if raw_text else "Analysis Complete"
             return {
-                "engine": "Claude 3.5 Sonnet",
+                "engine": CLAUDE_LABEL,
                 "title": first_line[:60],
                 "summary": first_line,
                 "full_explanation": raw_text

@@ -36,7 +36,7 @@ class StudyCopilotApp(rumps.App):
         # Engine Submenu
         self.menu_engine = rumps.MenuItem(f"⚙️ Engine: {self.engine.mode.capitalize()}")
         self.opt_mock = rumps.MenuItem("Offline Mock Mode", callback=lambda _: self.set_engine_mode("mock"))
-        self.opt_claude = rumps.MenuItem("Claude 3.5 Sonnet", callback=lambda _: self.set_engine_mode("claude"))
+        self.opt_claude = rumps.MenuItem("Claude Sonnet 5.5", callback=lambda _: self.set_engine_mode("claude"))
         self.opt_gemini = rumps.MenuItem("Gemini 2.5 Flash", callback=lambda _: self.set_engine_mode("gemini"))
         self.menu_engine.update([self.opt_mock, self.opt_claude, self.opt_gemini])
         self._update_engine_checks()

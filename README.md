@@ -28,7 +28,7 @@ Included is a completely isolated **Offline Practice Quiz Sandbox** (`http://127
 | Characteristic | Detail |
 | --- | --- |
 | **App** | Native macOS menu bar app (`app.py`, built with `rumps` on PyObjC); work runs on background threads so the UI stays responsive |
-| **Engines** | Offline mock (no key, no network), Claude 3.5 Sonnet (`ANTHROPIC_API_KEY`), Gemini 2.5 Flash (`GEMINI_API_KEY`) |
+| **Engines** | Offline mock (no key, no network), Claude Sonnet 5.5 (`ANTHROPIC_API_KEY`), Gemini 2.5 Flash (`GEMINI_API_KEY`) |
 | **Input** | Interactive screen region, full screen, or clipboard text |
 | **Sandbox** | Isolated offline practice quiz at `http://127.0.0.1:8000` for testing capture and vision safely |
 <!-- /datasheet:figure -->
@@ -43,7 +43,7 @@ Included is a completely isolated **Offline Practice Quiz Sandbox** (`http://127
 │  • 📸 Capture Full Screen & Explain                    │
 │  • 📋 Explain Clipboard Text                           │
 │  • 📖 View Latest Explanation                          │
-│  • ⚙️ Engine: [Mock | Claude 3.5 Sonnet | Gemini]      │
+│  • ⚙️ Engine: [Mock | Claude Sonnet 5.5 | Gemini]      │
 │  • 🌐 Open Practice Sandbox (localhost:8000)           │
 └────────────────────────────────────────────────────────┘
 ```
@@ -51,7 +51,7 @@ Included is a completely isolated **Offline Practice Quiz Sandbox** (`http://127
 1. **Native Menu Bar App (`app.py`)**: Built with `rumps` (PyObjC). Runs non-blocking background threads so the macOS UI remains responsive.
 2. **Explainer Engine (`explainer_engine.py`)**:
    - **Offline Mock Mode:** Pre-configured simulation engine requiring zero API keys or network requests.
-   - **Claude 3.5 Sonnet:** High-accuracy vision and conceptual analysis via the official Anthropic SDK (`ANTHROPIC_API_KEY`).
+   - **Claude Sonnet 5.5:** High-accuracy vision and conceptual analysis via the official Anthropic SDK (`ANTHROPIC_API_KEY`).
    - **Gemini 2.5 Flash:** High-speed multimodal understanding via the official `google-genai` SDK (`GEMINI_API_KEY`).
 3. **Practice Sandbox (`mock_practice_server.py`)**: A local web server hosting sample algorithms and machine learning problems to test the tool against a mock exam interface.
 
