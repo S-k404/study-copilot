@@ -156,7 +156,7 @@ class StudyCopilotApp(rumps.App):
 
     def on_open_sandbox(self, _):
         """Starts local mock quiz server if not running, and opens in browser."""
-        webbrowser.open("http://127.0.0.1:8000")
+        webbrowser.open("http://127.0.0.1:8001")
 
 if __name__ == "__main__":
     app = StudyCopilotApp()

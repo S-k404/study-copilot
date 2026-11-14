@@ -1,6 +1,6 @@
 """
 Local Mock Practice Server for Testing Screen-Reading & Explainer Assistants.
-Runs a local web server at http://127.0.0.1:8000
+Runs a local web server at http://127.0.0.1:8001
 """
 
 import http.server
@@ -8,7 +8,7 @@ import socketserver
 import webbrowser
 import sys
 
-PORT = 8000
+PORT = 8001
 
 HTML_PAGE = """<!DOCTYPE html>
 <html lang="en">

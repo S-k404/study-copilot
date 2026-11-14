@@ -11,7 +11,7 @@
 
 A lightweight, native macOS Menu Bar application that acts as an academic study copilot. It allows you to select any region of your screen or read clipboard text to generate structured, step-by-step conceptual explanations for complex algorithms, code snippets, and practice problems.
 
-Included is a completely isolated **Offline Practice Quiz Sandbox** (`http://127.0.0.1:8000`) for safely evaluating and testing screen-capture and vision-based analysis workflows.
+Included is a completely isolated **Offline Practice Quiz Sandbox** (`http://127.0.0.1:8001`) for safely evaluating and testing screen-capture and vision-based analysis workflows.
 
 ---
 
@@ -30,7 +30,7 @@ Included is a completely isolated **Offline Practice Quiz Sandbox** (`http://127
 | **App** | Native macOS menu bar app (`app.py`, built with `rumps` on PyObjC); work runs on background threads so the UI stays responsive |
 | **Engines** | Offline mock (no key, no network), Claude Sonnet 5.5 (`ANTHROPIC_API_KEY`), Gemini 2.5 Flash (`GEMINI_API_KEY`) |
 | **Input** | Interactive screen region, full screen, or clipboard text |
-| **Sandbox** | Isolated offline practice quiz at `http://127.0.0.1:8000` for testing capture and vision safely |
+| **Sandbox** | Isolated offline practice quiz at `http://127.0.0.1:8001` for testing capture and vision safely |
 <!-- /datasheet:figure -->
 
 ## Architecture Overview
@@ -44,7 +44,7 @@ Included is a completely isolated **Offline Practice Quiz Sandbox** (`http://127
 │  • 📋 Explain Clipboard Text                           │
 │  • 📖 View Latest Explanation                          │
 │  • ⚙️ Engine: [Mock | Claude Sonnet 5.5 | Gemini]      │
-│  • 🌐 Open Practice Sandbox (localhost:8000)           │
+│  • 🌐 Open Practice Sandbox (localhost:8001)           │
 └────────────────────────────────────────────────────────┘
 ```
 
@@ -64,7 +64,7 @@ Included is a completely isolated **Offline Practice Quiz Sandbox** (`http://127
 ./run.sh
 ```
 This script will:
-1. Start the local practice quiz in your default browser at `http://127.0.0.1:8000`.
+1. Start the local practice quiz in your default browser at `http://127.0.0.1:8001`.
 2. Launch the **Study Copilot** icon in your macOS status bar (`🎓 Study Copilot`).
 
 ---

@@ -11,7 +11,7 @@ if [ ! -d ".venv" ]; then
 fi
 
 echo "=========================================================="
-echo "🎓 Starting Local Mock Quiz Server on http://127.0.0.1:8000"
+echo "🎓 Starting Local Mock Quiz Server on http://127.0.0.1:8001"
 echo "=========================================================="
 .venv/bin/python mock_practice_server.py --open &
 SERVER_PID=$!
